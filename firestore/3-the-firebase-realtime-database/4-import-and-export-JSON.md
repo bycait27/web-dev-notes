@@ -39,7 +39,7 @@ firebase allows us to import and export JSON files to and from our app database
 4. click the “browse” button to select the file from your local device
 
     a. only files with the .json extension can be selected
-5. click the “import” buttom to import them
+5. click the “import” bottom to import them
 
 *OVERWRITES existing data
 
