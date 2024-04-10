@@ -126,3 +126,5 @@ firebase automatically provides an appropriate index to use on our app queries
 2. check for an error message from firebase like "the query requires an index. you can create it here: "hyperlink""
 3. click the hyperlink provided in the error message. this link will take us to the "cloud firestore" section of our firebase project console. we'll need to also sign in to our Google account
 4. click the "create the index" button. it takes a few minutes for firestore to build out the index created. after which you can make those queries successfully withot the error message from before
+
+***only queries that combine both where and order functions require indexes!**
