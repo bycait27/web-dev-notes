@@ -190,3 +190,47 @@ csr can be a great alternative to ssr for building very dynamic web pages
 
 if we are working on a page that doesn't need to be indexed by search engines, it could make sense to first load our app's javascript and then, from the client side, fetch any necessary data from the server
 - this would lighten the server-side workload since this approach doesn't involve ssr and our app could scale better
+
+----------------------------------------------------------------------
+# EXAMPLE
+
+**client-side blog rendering:**
+
+```
+import React, { useState, useEffect } from "react";
+import Link from 'next/link';
+
+export default function ClientBlogPost() {
+  const [clientBlogPosts, setClientPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchClientBlogs() {
+      try {
+        const response = await fetch("https://ed-6555414034513920.educative.run:3000/api/posts");
+        const data = await response.json();
+        setClientPosts(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchClientBlogs();
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <Link href="/serverPosts"> View Server blog posts </Link>
+        <br/>
+        <Link href="/clientPosts"> View Client blog posts </Link>
+      </div>
+      <h1>Client Blog Posts</h1>
+      <ul>
+        {clientBlogPosts.map((clientBlogPost) => (
+          <li key={clientBlogPost.id}>{clientBlogPost.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
