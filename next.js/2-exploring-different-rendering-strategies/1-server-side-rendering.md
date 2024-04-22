@@ -80,3 +80,40 @@ export default IndexPage;
 ssr has some caveats
 - if we want to use any component that relies on browser-specific apis, we will need to render it on the browser explicitly (next.js renders the entire page content on the server by default)
     - DOES NOT expose certain apis (window or document)
+
+----------------------------------------------------------------------
+# EXAMPLE
+
+**server-side blog rendering:**
+
+```
+import axios from 'axios';
+import Link from 'next/link';
+export default function ServerBlogPosts({ posts }) {
+  return (
+    <div>
+      <div>
+        <Link href="/serverPosts"> View Server blog posts </Link>
+        <br/>
+        <Link href="/clientPosts"> View Client blog posts </Link>
+      </div>
+      <h1>Server Blog Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export async function getServerSideProps() {
+  const response = await axios.get('https://ed-6555414034513920.educative.run:3000/api/posts');
+  const posts = response.data;
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+```
